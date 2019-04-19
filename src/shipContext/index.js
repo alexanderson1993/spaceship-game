@@ -18,10 +18,18 @@ const initialState = [
   }
 ]
 
+export let state = initialState.concat()
+function setState(data) {
+  if (typeof data === 'function') {
+    state = data(state)
+    return
+  }
+  state = data
+}
 export const ShipContext = createContext(initialState)
 
 export const ShipProvider = ({ children }) => {
-  const [state, setState] = useState(initialState)
+  //  const [state, setState] = useState(initialState)
   const playerId = state[0].id
   useKeyRotate(setState, playerId)
   useKeyThrust(setState, playerId)

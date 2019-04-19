@@ -1,17 +1,18 @@
 import * as THREE from 'three'
 import React, { useRef, useMemo, useEffect } from 'react'
+import { useRender } from 'react-three-fiber'
+import { state } from './shipContext'
 
-export function Ship({ position, rotation }) {
+export function Ship({ id }) {
   let group = useRef()
-  const { x, y, z, w } = rotation
-  const { x: px, y: py, z: pz } = position
-  useEffect(() => {
+  useRender(() => {
+    const { rotation, position } = state.find(s => s.id === id)
+    const { x, y, z, w } = rotation
+    const { x: px, y: py, z: pz } = position
     const quat = new THREE.Quaternion(x, y, z, w)
     group.current.setRotationFromQuaternion(quat)
-  }, [x, y, z, w])
-  useEffect(() => {
     group.current.position.set(px, py, pz)
-  }, [px, py, pz])
+  })
   const [geo, mat1, mat2] = useMemo(() => {
     const geometry = new THREE.Geometry()
     geometry.vertices.push(new THREE.Vector3(0, 0, -1))
