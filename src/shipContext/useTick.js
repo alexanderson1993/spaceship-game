@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
+import { calculateShipAI } from './calculateShipAI'
 const rotationDrag = 0.5
 const drag = 0.001
 
@@ -41,22 +42,22 @@ function calcVel(maxVelocity, velocity, acceleration) {
 }
 export function useTick(setState) {
   const timeout = useRef()
-
   useEffect(() => {
     tick()
     function tick() {
       setState(oldState =>
-        oldState.map(player => {
+        oldState.map((player, i) => {
           const {
             velocity,
             position,
+            destination,
             acceleration,
             maxVelocity,
             rotation,
             rotationVelocity,
             maxRotationVelocity,
             rotationAcceleration
-          } = player
+          } = calculateShipAI(player, i === 0)
 
           const newRotationVelocity = {
             x: calcRotVel(
@@ -108,6 +109,7 @@ export function useTick(setState) {
             velocity: newVelocity,
             position: newPosition,
             rotation: newRotation,
+            destination,
             rotationVelocity: newRotationVelocity
           }
         })

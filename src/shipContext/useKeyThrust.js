@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 
-const acceleration = 0.01
 export function useKeyThrust(setState, playerId) {
   useEffect(() => {
     function startRotate(e) {
       setState(oldState =>
         oldState.map(player => {
+          const acceleration = player.accelerationScalar
           const direction = player.acceleration
           if (player.id === playerId) {
             if (e.key === 'w') {

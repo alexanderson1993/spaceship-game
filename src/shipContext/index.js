@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react'
+import React, { createContext } from 'react'
 import uuid from 'uuid'
 import { useTick } from './useTick'
 import { useKeyRotate } from './useKeyRotate'
@@ -13,8 +13,10 @@ const initialState = [
     rotation: { x: 0, y: 0, z: 0, w: 1 },
     rotationVelocity: { x: 0, y: 0, z: 0 },
     rotationAcceleration: { x: 0, y: 0, z: 0 },
-    maxVelocity: 1,
-    maxRotationVelocity: 3
+    maxVelocity: 0.1,
+    maxRotationVelocity: 3,
+    accelerationScalar: 0.01,
+    rotationAccelerationScalar: 1
   }
 ]
 

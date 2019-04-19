@@ -1,10 +1,12 @@
 import * as THREE from 'three'
 import React, { useRef, useMemo, useEffect } from 'react'
-import { useRender } from 'react-three-fiber'
+import { useRender, useThree } from 'react-three-fiber'
 import { state } from './shipContext'
 
 export function Ship({ id }) {
   let group = useRef()
+  const { scene } = useThree()
+  window.SCENE = window.SCENE || scene
   useRender(() => {
     const { rotation, position } = state.find(s => s.id === id)
     const { x, y, z, w } = rotation

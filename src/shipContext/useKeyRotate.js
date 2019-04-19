@@ -6,6 +6,7 @@ export function useKeyRotate(setState, playerId) {
     function startRotate(e) {
       setState(oldState =>
         oldState.map(player => {
+          const acceleration = player.rotationAccelerationScalar
           const direction = player.rotationAcceleration
           if (player.id === playerId) {
             // if (e.key === 'w') {
